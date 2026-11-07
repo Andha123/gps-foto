@@ -1,5 +1,5 @@
 // Service worker: gjør at appen åpner og fungerer uten nett.
-var CACHE = 'gpsfoto-v1';
+var CACHE = 'gpsfoto-v2';
 var FILES = [
   './', './index.html', './style.css', './app.js', './utm.js', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './icons/maskable-512.png'

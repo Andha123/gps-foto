@@ -36,6 +36,10 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="2"/><rect x="13" y="3" width="8" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3" y="13" width="8" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="2"/><rect x="13" y="13" width="8" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="2"/></svg>
       BILDER <span id="photoCount" class="count"></span>
     </button>
+    <button id="btnImport" class="big tertiary">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      HENT FRA KAMERARULL
+    </button>
   </main>
   <footer class="home-foot">
     <p id="installHint" class="hint" hidden></p>
@@ -80,8 +84,19 @@
     <h2 id="galTitle">Bilder</h2>
     <button id="galCamera" class="pill">+ Ta bilde</button>
   </header>
+  <div class="toolbar">
+    <button id="galSelect" class="tool">Velg</button>
+    <button id="galImport" class="tool">Hent fra kamerarull</button>
+    <button id="galAll" class="tool" hidden>Velg alle</button>
+    <button id="galDone" class="tool strong" hidden>Ferdig</button>
+  </div>
   <div id="grid" class="grid"></div>
   <p id="galEmpty" class="empty" hidden>Ingen bilder ennå.<br>Trykk «Ta bilde» for å starte.</p>
+  <div id="selBar" class="actions selbar" hidden>
+    <button id="selSave" class="act">Lagre i Bilder</button>
+    <button id="selShare" class="act">Del</button>
+    <button id="selDelete" class="act danger">Slett</button>
+  </div>
 </section>
 
 <!-- VIS BILDE -->
@@ -111,6 +126,17 @@
       <button id="dialogOk" class="act danger">Slett</button>
     </div>
   </div>
+</div>
+
+<div id="progress" class="dialog" hidden>
+  <div class="dialog-box"><p id="progressText">Henter bilder …</p></div>
+</div>
+
+<input id="importInput" type="file" accept="image/*" multiple hidden>
+
+<div id="saveBar" class="savebar" hidden>
+  <span id="saveBarText"></span>
+  <button id="saveBarBtn">Lagre i Bilder</button>
 </div>
 
 <div id="toast" class="toast" hidden></div>

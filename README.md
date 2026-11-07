@@ -6,7 +6,10 @@ Enkel app for feltdokumentasjon: ta et bilde, så skrives UTM-koordinatene (X/Y,
 - GPS-posisjon og nøyaktighet (±m) vises før du tar bildet. Utløseren er sperret til appen har fått en fersk posisjon.
 - Automatisk UTM-sone (32/33/34/35, også Svalbard), ETRS89 / EPSG:258xx
 - X, Y, sone, nøyaktighet og tidspunkt skrives inn i selve bildet, nederst til venstre
-- Galleri: vis, del, lagre til Bilder, slett. Alt lagres lokalt på telefonen.
+- Lagres automatisk i kamerarullen: på iPhone åpnes delingsarket etter hvert bilde (trykk «Arkiver bilde»), på Android lastes bildet ned automatisk.
+- Hent bilder fra kamerarullen: bruker GPS-posisjonen i bildet, eller (etter spørsmål) posisjonen der du står.
+- GPS-posisjon og tidspunkt skrives også i bildefilens EXIF, så bildet havner på riktig sted og dato i Bilder.
+- Galleri: vis, del, lagre til Bilder, velg flere, slett.
 - Virker uten nett etter første åpning.
 
 ## Publisere på GitHub Pages
