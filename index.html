@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>GPS-foto</title>
+<meta name="theme-color" content="#0f1419">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GPS-foto">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HJEM -->
+<section id="home" class="screen">
+  <header class="home-head">
+    <div class="brand">
+      <img src="icons/icon-192.png" alt="" width="44" height="44">
+      <div>
+        <h1>GPS-foto</h1>
+        <p>Bilder med UTM-koordinater</p>
+      </div>
+    </div>
+  </header>
+  <main class="home-main">
+    <button id="btnTake" class="big primary">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      TA BILDE
+    </button>
+    <button id="btnGallery" class="big secondary">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="2"/><rect x="13" y="3" width="8" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3" y="13" width="8" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="2"/><rect x="13" y="13" width="8" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      BILDER <span id="photoCount" class="count"></span>
+    </button>
+  </main>
+  <footer class="home-foot">
+    <p id="installHint" class="hint" hidden></p>
+    <p class="hint">Bildene lagres kun på denne telefonen. Lagre eller del dem fra galleriet for sikkerhetskopi.</p>
+  </footer>
+</section>
+
+<!-- KAMERA -->
+<section id="camera" class="screen" hidden>
+  <video id="video" playsinline muted autoplay></video>
+  <div id="flash"></div>
+
+  <div class="cam-top">
+    <button id="camBack" class="icon-btn" aria-label="Tilbake">
+      <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div id="gpsBox" class="gps-box wait">
+      <div class="gps-line1"><span class="dot"></span><span id="gpsAcc">Venter på GPS …</span></div>
+      <div id="gpsCoords" class="gps-coords"></div>
+    </div>
+    <button id="torchBtn" class="icon-btn" aria-label="Lommelykt" hidden>
+      <svg viewBox="0 0 24 24"><path d="M8 2h8v5l-2 3v12h-4V10L8 7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <div id="camMsg" class="cam-msg" hidden></div>
+
+  <div class="cam-bottom">
+    <button id="lastThumb" class="last-thumb" aria-label="Åpne galleri"></button>
+    <button id="shutter" class="shutter" aria-label="Ta bilde" disabled><span></span></button>
+    <div class="spacer"></div>
+  </div>
+  <input id="fileFallback" type="file" accept="image/*" capture="environment" hidden>
+</section>
+
+<!-- GALLERI -->
+<section id="gallery" class="screen" hidden>
+  <header class="bar">
+    <button id="galBack" class="icon-btn" aria-label="Tilbake">
+      <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <h2 id="galTitle">Bilder</h2>
+    <button id="galCamera" class="pill">+ Ta bilde</button>
+  </header>
+  <div id="grid" class="grid"></div>
+  <p id="galEmpty" class="empty" hidden>Ingen bilder ennå.<br>Trykk «Ta bilde» for å starte.</p>
+</section>
+
+<!-- VIS BILDE -->
+<section id="viewer" class="screen" hidden>
+  <header class="bar">
+    <button id="viewBack" class="icon-btn" aria-label="Tilbake">
+      <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <h2 id="viewTitle">Bilde</h2>
+    <span></span>
+  </header>
+  <div class="view-img"><img id="viewImg" alt="Bilde med koordinater"></div>
+  <dl id="viewInfo" class="info"></dl>
+  <div class="actions">
+    <button id="actShare" class="act">Del</button>
+    <button id="actSave" class="act">Lagre i Bilder</button>
+    <button id="actDelete" class="act danger">Slett</button>
+  </div>
+</section>
+
+<!-- DIALOG -->
+<div id="dialog" class="dialog" hidden>
+  <div class="dialog-box">
+    <p id="dialogText"></p>
+    <div class="dialog-btns">
+      <button id="dialogCancel" class="act">Avbryt</button>
+      <button id="dialogOk" class="act danger">Slett</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="utm.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
